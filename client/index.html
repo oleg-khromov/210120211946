@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="./assets/index.css">
+  <title>Test</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>  
+</head>
+<body>
+<div id="app" class="inner" v-cloak>
+  <div class="content">
+    <div class="container">
+      <div class="user">
+        <div class="user__photo">
+          <img src="./assets/img/user.png" alt="">
+        </div>
+        <div class="user__info">
+          <h1 class="user__title">Вероника Ростова</h1>
+          <span class="user__state">Менеджер по продажам</span>
+          <div class="user__slogan">Подберу для вас самые лучшие предложения.Мои услуги абсолютно бесплатны</div>
+          <table class="user__table table">
+            <thead>
+              <tr>
+                <th colspan="2">&nbsp;</th>
+                <th>Услуг</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2">
+                  <div class="table__line">
+                    <span>
+                      Ручное бронирование
+                    </span>
+                  </div>
+                </td>
+                <td>11</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div class="table__line table__line--green">
+                    <span>
+                      Пакетные туры
+                    </span>
+                  </div>
+                </td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div class="table__line table__line--green">
+                    <span>
+                      Отели
+                    </span>
+                  </div>
+                </td>
+                <td>1</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">Всего</td>
+                <td>15</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div v-if="loading">
+        <loader />
+      </div>
+      <div v-else-if="reviews.length" class="reviews">
+        <div class="reviews__head">
+          <h3 class="reviews__title">Последние отзывы</h3>
+          <a href="" class="reviews__link">Все отзывы</a>
+          <div class="reviews__count">
+            <span class="reviews__count-item">
+              <img src="./assets/img/like.svg" alt="">
+              <span class="reviews__count-text">131</span>
+            </span>
+            <span class="reviews__count-item">
+              <img src="./assets/img/comment.svg" alt="">
+              <span class="reviews__count-text">{{count}}</span>
+            </span>
+          </div>
+        </div>
+        <div class="reviews__list">
+          <div v-for="(review, index) in reviews" v-if="index > reviews.length - 4" class="review-item">
+            <div class="review-item__inner">
+              <div class="review-item__info">
+                <!-- {{index}}
+                {{reviews.length}} -->
+                <span class="review-item__name">{{review.author}}</span>
+                <span class="review-item__date">{{review.date}}</span>
+              </div>
+              <div class="review-item__message">{{review.message}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-wrap">
+    <div class="container">
+      <form class="form">
+        <div class="form__row">
+          <textarea class="form__field" id="message" v-model="form.message" @keyup.ctrl.enter.prevent.exact="addReview" @keydown.enter.prevent=""></textarea>
+        </div>
+        <button class="form__btn" type="submit" :disabled="!disabled" @click.prevent="addReview">Написать консультанту</button>
+      </form>
+    </div>
+  </div>
+</div>  
+<script type="module" src="./assets/index.js"></script>
+</body>
+</html>
